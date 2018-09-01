@@ -12,7 +12,7 @@ function printQuestionMarks(num) {
     return arr.toString();
 }
 
-// Helper function for generating My SQL syntax
+// Helper function 
 function objToSql(ob) {
     var arr = [];
 
@@ -53,7 +53,7 @@ var orm = {
         queryString += printQuestionMarks(vals.length);
         queryString += ") ";
 
-        // console.log(queryString);
+        console.log(queryString);
 
         // Perform the database query
         connection.query(queryString, vals, function(err, result) {
@@ -76,7 +76,7 @@ var orm = {
         queryString += " WHERE ";
         queryString += condition;
 
-        // console.log(queryString);
+        console.log(queryString);
 
         // Perform the database query
         connection.query(queryString, function(err, result) {
@@ -90,13 +90,13 @@ var orm = {
     }
 };
 
-// Export the orm object for use in other modules
+// Export the orm object 
 module.exports = orm;
 
 
 
 
-
+// Test Code
 
 // var connection = require("./connection.js");
 
