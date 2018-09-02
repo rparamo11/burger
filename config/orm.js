@@ -1,123 +1,80 @@
-// Import the MySQL connection object
-var connection = require ('./connection.js');
+//Import mySQL connection
+var connection = require("../config/connection.js");
 
-// Helper function for generating MySQL syntax
+// Helper function for SQL syntax.
 function printQuestionMarks(num) {
-    var arr = [];
+  var arr = [];
 
-    for (var i = 0; i < num; i++) {
-        arr.push("?");
-    }
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
 
-    return arr.toString();
+  return arr.toString();
 }
 
-// Helper function 
+// Helper function for SQL syntax.
 function objToSql(ob) {
-    var arr = [];
+  var arr = [];
 
-    for (var key in ob) {
-        arr.push(key + "=" + ob[key]);
+  for (var key in ob) {
+    if (Object.hasOwnProperty.call(ob, key)) {
+      arr.push(key + "=" + ob[key]);
     }
+  }
 
-    return arr.toString();
+  return arr.toString();
 }
 
-// Create the ORM object to perform SQL queries
+// Object for our SQL statement functions.
 var orm = {
-    // Function that returns all table entries
-    selectAll: function(tableInput, callback) {
-        // Construct the query string that returns all rows from the target table
-        var queryString = "SELECT * FROM " + tableInput + ";";
+  selectAll: function(tableInput, cb) {
 
-        // Perform the database query
-        connection.query(queryString, function(err, result) {
-            if (err) {
-                throw err;
-            }
+// Construct the query string that returns all rows from the target table
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+},
+  insertOne: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
 
-            // Return results in callback
-            callback(result);
-        });
-    },
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
 
-    // Function that insert a single table entry
-    insertOne: function(table, cols, vals, callback) {
-        // Construct the query string that inserts a single row into the target table
-        var queryString = "INSERT INTO " + table;
+    console.log(queryString);
 
-        queryString += " (";
-        queryString += cols.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString += printQuestionMarks(vals.length);
-        queryString += ") ";
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  updateOne: function(table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
 
-        console.log(queryString);
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
 
-        // Perform the database query
-        connection.query(queryString, vals, function(err, result) {
-            if (err) {
-                throw err;
-            }
+    console.log(queryString);
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
 
-            // Return results in callback
-            callback(result);
-        });
-    },
-
-    // Function that updates a single table entry
-    updateOne: function(table, objColVals, condition, callback) {
-        // Construct the query string that updates a single entry in the target table
-        var queryString = "UPDATE " + table;
-
-        queryString += " SET ";
-        queryString += objToSql(objColVals);
-        queryString += " WHERE ";
-        queryString += condition;
-
-        console.log(queryString);
-
-        // Perform the database query
-        connection.query(queryString, function(err, result) {
-            if (err) {
-                throw err;
-            }
-
-            // Return results in callback
-            callback(result);
-        });
-    }
+      cb(result);
+    });
+  },
 };
 
-// Export the orm object 
+// Export the orm object for the model (cat.js).
 module.exports = orm;
-
-
-
-
-// Test Code
-
-// var connection = require("./connection.js");
-
-// var orm = {
-//     selectAll: function (callback) {
-//         orm.selectAll('burgers', function(res) {
-//             callback(res);
-//         });
-//     },
-
-//     insertOne: function (col, val, callback) {
-//         orm.insertOne('burgers', col, val, function(res) {
-//             callback(res);
-//         });
-//     },
-
-//     updateOne: function (object, condition, callback) {
-//         orm.updateOne('burgers', object, condition, callback, function(res) {
-//             callback(res);
-//         });
-//     },
-// };
-
-// module.exports = orm;
