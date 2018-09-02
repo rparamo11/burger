@@ -1,21 +1,22 @@
+// Here is where you create all the functions that will do the routing for your app
 var express = require('express');
-
 var router = express.Router();
 
-// Import the model burger.js to use its database functions.
+// Import the model (burger.js) to use its database functions.
 var burger = require('../models/burger.js');
 
-// Create all our routes and set up logic within those routes where required.
+//EXPRESS GET ROUTE
 router.get('/', function(req, res) {
   burger.selectAll(function(data) {
     var hbsObject = {
       burgers: data
     };
-    console.log(hbsObject);
+    // console.log(hbsObject);
     res.render('index', hbsObject);
   });
 });
 
+//EXPRESS POST ROUTE
 router.post('/burgers', function(req, res) {
   burger.insertOne([
     'burger_name'
@@ -26,6 +27,7 @@ router.post('/burgers', function(req, res) {
   });
 });
 
+//EXPRESS PUT ROUTE
 router.put('/burgers/:id', function(req, res) {
   var condition = 'id = ' + req.params.id;
 
@@ -36,33 +38,5 @@ router.put('/burgers/:id', function(req, res) {
   });
 });
 
+//Experts routes for server.js to use. 
 module.exports = router;
-
-
-
-// var burger = require("../models/burger.js");
-
-// var controller = function(app) {
-// 	app.get('/', function(req, res) {
-// 		burger.all(function(data) {
-// 			res.render("index", {
-// 				burgers: data
-// 			});
-// 		});
-// 	});
-
-// 	app.post('/', function(req, res) {
-// 		burger.new('burger_name', req.body.burger, function(data) {
-// 			res.redirect('/');
-// 			console.log(req.body.burger);
-// 		});
-// 	});
-
-// 	app.put('/', function(req, res) {
-// 		burger.devour('devoured', 1, 'id', req.body.id, function(data) {
-// 			res.redirect('/');
-// 		});
-// 	});
-// };
-
-// module.exports = controller;
