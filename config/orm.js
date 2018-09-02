@@ -25,7 +25,6 @@ function objToSql(ob) {
   return arr.toString();
 }
 
-// Object for our SQL statement functions.
 var orm = {
   selectAll: function(tableInput, cb) {
 
@@ -76,5 +75,5 @@ var orm = {
   },
 };
 
-// Export the orm object for the model (cat.js).
+//Export the orm object for the model (cat.js).
 module.exports = orm;

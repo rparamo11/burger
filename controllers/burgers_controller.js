@@ -1,22 +1,21 @@
-// Here is where you create all the functions that will do the routing for your app
+//Routing
 var express = require('express');
 var router = express.Router();
 
-// Import the model (burger.js) to use its database functions.
 var burger = require('../models/burger.js');
 
-//EXPRESS GET ROUTE
+//express GET
 router.get('/', function(req, res) {
   burger.selectAll(function(data) {
     var hbsObject = {
       burgers: data
     };
-    // console.log(hbsObject);
+    console.log(hbsObject);
     res.render('index', hbsObject);
   });
 });
 
-//EXPRESS POST ROUTE
+//express POST
 router.post('/burgers', function(req, res) {
   burger.insertOne([
     'burger_name'
@@ -27,7 +26,7 @@ router.post('/burgers', function(req, res) {
   });
 });
 
-//EXPRESS PUT ROUTE
+//express PUT (update)
 router.put('/burgers/:id', function(req, res) {
   var condition = 'id = ' + req.params.id;
 

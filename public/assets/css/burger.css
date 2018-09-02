@@ -4,7 +4,7 @@
 
 
 body {
-	background-color: #FFDC92;
+	background-color: rgb(245, 158, 58);
 	font-family: 'Noto Sans', sans-serif;
 	font-size: 1em;
 	position: relative;
@@ -20,7 +20,7 @@ body {
 
 h1 {
 	text-align: center;
-	color: crimson;
+	color: rgb(245, 9, 56);
 	letter-spacing: 2px;
 	margin-top: 2%;
 }
