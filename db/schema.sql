@@ -7,8 +7,9 @@ USE burgers_db;
 -- Creates table and field --
 CREATE TABLE burgers
 (
-    id INT AUTO_INCREMENT NOT NULL,
-    burger_name VARCHAR(35),
-    devoured BOOLEAN, 
-    PRIMARY KEY (id)
+    id INT NOT NULL AUTO_INCREMENT,
+	burger_name VARCHAR(100) NOT NULL,
+	devoured BOOLEAN NOT NULL DEFAULT 0,
+	date TIMESTAMP,
+	PRIMARY KEY (id)
 );
