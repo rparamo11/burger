@@ -1,108 +1,46 @@
+// PULL IN REQUIRED DEPENDENCIES
 
 var express = require("express");
 var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
+var methodOverride = require('method-override');
 
+// ==============================================================================
+// EXPRESS CONFIGURATION
+// This sets up the basic properties for our express server
+// ==============================================================================
+
+// Tells node that we are creating an "express" server
 var app = express();
 
+//Serve static content for the app from the "public" directory in the application directory
+app.use(express.static(process.cwd() + '/public'));
 
+app.use(bodyParser.urlencoded({
+	extended: false
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-
-app.use(methodOverride("_method"));
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({
-	defaultLayout: "main"
 }));
-app.set("view engine", "handlebars");
 
-app.use(express.static('./public'));
- 
-require("./controllers/burger_controller.js")(app);
+//override with POST having ?_method = DELTE
+app.use(methodOverride('_method'));
 
-app.set('port', process.env.PORT);
+//handlebars
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({
+	defaultLayout: 'main'
 
-app.listen(app.get('port'), () => {
-    console.log(`Express app listening on ${app.get('port')}`);
-});
-
-
+}));
+app.set('view engine', 'handlebars');
 
 
+//Import routes and give the server across to them
+var routes = require('./controllers/burgers_controller.js');
+app.use('/', routes);
 
-// //Requires the npm packages of express and body parser
-// var express = require("express");
-// var bodyParser = require("body-parser");
-// var methodOverride = require("method-override");
+// ==============================================================================
+// LISTENER
+// The below code effectively "starts" our server
+// ==============================================================================
 
-// var PORT = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
-// var app = express();
-
-// // Serve static content for the app from the 'public' directory
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-
-// app.use(methodOverride("_method"));
-// var exphbs = require("express-handlebars");
-
-// app.engine("handlebars", exphbs({
-// 	defaultLayout: "main"
-// }));
-// app.set("view engine", "handlebars");
-
-// app.use(express.static('./public'));
- 
-// require("./controllers/burger_controller.js")(app);
-
-// app.set(PORT, process.env.PORT);
-
-// app.listen(app.get(PORT), () => {
-//     console.log(`Express app listening on ${app.get(PORT)}`);
-// });
-
-
-
-
-//Code doesnt work
-
-//Requires the npm packages of express and body parser
-// var express = require("express");
-// var bodyParser = require("body-parser");
-// var methodOverride = require("method-override");
-
-// var port = process.env.PORT || 3000;
-
-// var app = express();
-
-// // Serve static content for the app from the 'public' directory
-// app.use(express.static(process.cwd() + '/public'));
-
-// app.use(bodyParser.urlencoded({ extended: false }));
-
-// app.use(methodOverride("_method"));
-// var exphbs = require("express-handlebars");
-
-// // Set Handlebars 
-// var exphbs = require('express-handlebars');
-
-// app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-// app.set('view engine', 'handlebars');
-
-
-// app.engine("handlebars", exphbs({
-// defaultLayout: "main"
-// }));
-// app.set("view engine", "handlebars");
-
-// app.use(express.static('./public'));
-
-// require("./controllers/burger_controller.js")(app);
-
-// app.set('port', process.env.PORT);
-
-// app.listen(app.get('port'), () => {
-// console.log(`Express app listening on ${app.get('port')}`);
-// });
+app.listen(port);
