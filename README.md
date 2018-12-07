@@ -1,4 +1,5 @@
-# burger
+# Eat-A-Burger
+
 ## Intro
 
 1. Eat-A-Burger is a restaurant app that lets users input the names of burgers they'd like to eat.
@@ -11,7 +12,7 @@
 
 ## Instructions
 
-## App Setup
+### App Setup
 
 1. Create a GitHub repo called `burger` and clone it to your computer.
 
@@ -34,7 +35,7 @@
 	* method-override
 	* body-parser
 
-#### DB Setup:
+### DB Setup:
 
 1. Inside your `burger` directory, create a folder named `db`.
 
@@ -63,7 +64,7 @@
 	*
 	 Close out of the MySQL command line tool: `exit`.
 
-## Config Setup:
+### Config Setup:
 
 1. Inside your `burger` directory, create a folder named `config`.
 
@@ -84,7 +85,7 @@
 
 	* Export the ORM object in `module.exports`.
 
-## Model setup:
+### Model setup:
 
 * Inside your `burger` directory, create a folder named `models`.
 
@@ -96,7 +97,7 @@
 
 		* Export at the end of the `burger.js` file.
 
-## Controller setup:
+### Controller setup:
 
 1. Inside your `burger` directory, create a folder named `controllers`.
 
@@ -108,7 +109,7 @@
 
 4. Create the `router` for the app, and export the `router` at the end of your file.
 
-## View setup:
+### View setup:
 
 1. Inside your `burger` directory, create a folder named `views`.
 
