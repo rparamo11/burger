@@ -1,6 +1,7 @@
 # Eat-A-Burger
 
 ## Intro
+https://shielded-mesa-19242.herokuapp.com/
 
 1. Eat-A-Burger is a restaurant app that lets users input the names of burgers they'd like to eat.
 
@@ -9,6 +10,8 @@
 3. Each burger in the waiting area also has a `Devour it!` button. When the user clicks it, the burger will move to the right side of the page.
 
 4. Your app will store every burger in a database, whether devoured or not.
+
+![Screen shot](public/assets/img/image_1.png)
 
 ## Instructions
 
